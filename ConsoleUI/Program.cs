@@ -1,6 +1,9 @@
 ﻿using Business.Concrete;
-using DataAccess.Concrete.InMemory;
+using DataAccess.Concrete.EntityFramework;
+
+using Entities.Concrete;
 using System;
+using System.Collections.Generic;
 
 namespace ConsoleUI
 {
@@ -9,8 +12,15 @@ namespace ConsoleUI
         static void Main(string[] args)
 
         {
-            
-            CarManager carManager = new CarManager(new InMemoryCarDal());
+
+
+            CarManager carManager = new CarManager(new EfCarDal());
+           
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+
+            //////////////////////    Veritabanındaki tüm arabaları getirme:
+
             foreach (var car in carManager.GetAll())
             {
                 Console.WriteLine("CarId: " + car.CarId + " BrandId: " + car.BrandId + " ColorId: " + car.ColorId + " Model Year: " + car.ModelYear + " Daily Price: " + car.DailyPrice + " Description: " + car.Description);
@@ -19,26 +29,38 @@ namespace ConsoleUI
             Console.WriteLine("-----------------------------------------------------------------------------------");
 
 
-            // Veritabanına yeni bir araba ekleyelim ve ekledikten sonra veritabanaındaki tüm arabaları GetAll ile çekelim.
-            InMemoryCarDal ınMemoryCarDal = new InMemoryCarDal();
-            ınMemoryCarDal.Add(new Entities.Concrete.Car { CarId = 6,BrandId=3,ColorId=3,ModelYear=2011,DailyPrice=225,Description="benzin"});
-            foreach (var car in ınMemoryCarDal.GetAll())
+
+            //////////////////////7/BrandId lerine göre arabaları getirme:
+
+            foreach (var car in carManager.GetCarsByBrandId(3))
             {
                 Console.WriteLine("CarId: " + car.CarId + " BrandId: " + car.BrandId + " ColorId: " + car.ColorId + " Model Year: " + car.ModelYear + " Daily Price: " + car.DailyPrice + " Description: " + car.Description);
-
             }
 
             Console.WriteLine("-----------------------------------------------------------------------------------");
-            
 
-            //GetById metodu ile veritabanındaki 1 numaralı Id ye sahip olan arabanın tüm özelliklerini getirdik.
-            foreach (var car in ınMemoryCarDal.GetById(1))
+
+
+            ///////////////////////ColorId lerine göre arabaları getirme:
+
+            foreach (var car in carManager.GetCarsByColorId(1))
             {
                 Console.WriteLine("CarId: " + car.CarId + " BrandId: " + car.BrandId + " ColorId: " + car.ColorId + " Model Year: " + car.ModelYear + " Daily Price: " + car.DailyPrice + " Description: " + car.Description);
             }
 
+            //////////////////////veritabanına ücreti 0 dan küçük araba eklersek :
+            //carManager.Add(new Car {BrandId=1,ColorId=3,DailyPrice=-10,ModelYear=2012,Description="dizel"});
 
+            brandManager.Add(new Brand { BrandName = "Toyota" });//Burada Toyota veritabanına yeni bir Brand(marka) olarak eklenir.
+            brandManager.Add(new Brand { BrandName = "A" }); //Fakat burada (2 karakterden küçük olamaz) yazdırır ve veritabanına eklemez.
+
+
+            
         }
+
+
+
+        
 
 
     }
