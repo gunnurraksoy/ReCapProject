@@ -12,55 +12,65 @@ namespace ConsoleUI
         static void Main(string[] args)
 
         {
+            //CarTest1();
+            //CarTest2();
+            //BrandTest1();
+            //ColorTest1();
 
+
+            //join ile yapılan kodun testi:
 
             CarManager carManager = new CarManager(new EfCarDal());
-           
-            BrandManager brandManager = new BrandManager(new EfBrandDal());
-            ColorManager colorManager = new ColorManager(new EfColorDal());
+            foreach (var car in carManager.GetCarDetails())
+            {
+                Console.WriteLine(car.CarName+"/" +car.BrandName+"/"+car.ColorName+"/"+car.DailyPrice);
+            }
 
-            //////////////////////    Veritabanındaki tüm arabaları getirme:
+        }
+
+        private static void ColorTest1()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            foreach (var car in colorManager.GetAll())
+            {
+                Console.WriteLine(car.ColorName);
+
+
+            }
+        }
+
+        private static void BrandTest1()
+        {
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            foreach (var car in brandManager.GetAll())
+            {
+                Console.WriteLine(car.BrandName);
+
+
+            }
+        }
+
+        private static void CarTest2()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+
+            Console.WriteLine((carManager.GetById(7)).DailyPrice);
+        }
+
+        private static void CarTest1()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
 
             foreach (var car in carManager.GetAll())
             {
-                Console.WriteLine("CarId: " + car.CarId + " BrandId: " + car.BrandId + " ColorId: " + car.ColorId + " Model Year: " + car.ModelYear + " Daily Price: " + car.DailyPrice + " Description: " + car.Description);
+                Console.WriteLine(car.ColorId);
+
+
             }
-
-            Console.WriteLine("-----------------------------------------------------------------------------------");
-
-
-
-            //////////////////////7/BrandId lerine göre arabaları getirme:
-
-            foreach (var car in carManager.GetCarsByBrandId(3))
-            {
-                Console.WriteLine("CarId: " + car.CarId + " BrandId: " + car.BrandId + " ColorId: " + car.ColorId + " Model Year: " + car.ModelYear + " Daily Price: " + car.DailyPrice + " Description: " + car.Description);
-            }
-
-            Console.WriteLine("-----------------------------------------------------------------------------------");
-
-
-
-            ///////////////////////ColorId lerine göre arabaları getirme:
-
-            foreach (var car in carManager.GetCarsByColorId(1))
-            {
-                Console.WriteLine("CarId: " + car.CarId + " BrandId: " + car.BrandId + " ColorId: " + car.ColorId + " Model Year: " + car.ModelYear + " Daily Price: " + car.DailyPrice + " Description: " + car.Description);
-            }
-
-            //////////////////////veritabanına ücreti 0 dan küçük araba eklersek :
-            //carManager.Add(new Car {BrandId=1,ColorId=3,DailyPrice=-10,ModelYear=2012,Description="dizel"});
-
-            brandManager.Add(new Brand { BrandName = "Toyota" });//Burada Toyota veritabanına yeni bir Brand(marka) olarak eklenir.
-            brandManager.Add(new Brand { BrandName = "A" }); //Fakat burada (2 karakterden küçük olamaz) yazdırır ve veritabanına eklemez.
-
-
-            
         }
 
 
 
-        
 
 
     }
