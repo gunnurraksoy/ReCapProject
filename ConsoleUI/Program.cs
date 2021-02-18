@@ -13,65 +13,87 @@ namespace ConsoleUI
 
         {
             //CarTest1();
-            //CarTest2();
-            //BrandTest1();
             //ColorTest1();
+            //ResultTest1();
+            //ResultTest2();
+            //Test1();
+            //Test2();
 
+        }
 
-            //join ile yapılan kodun testi:
+        private static void Test2()
+        {
+            ///////Marka adı 2 harften fazla olduğu içim ekleyecek ve eklediğine dağir mesaj verecek.
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            var result = brandManager.Add(new Brand { BrandName = "Honda" });
+            Console.WriteLine(result.Message);
+        }
 
+        private static void Test1()
+        {
+            //////Araba ücreti 0 dan büyük olmadığı için eklemeyecek ve uyarı verecek.(Error)
             CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetCarDetails())
+            var result = carManager.Add(new Car { BrandId = 1, ColorId = 2, DailyPrice = -10, Description = "dizel", ModelYear = 2011 });
+            Console.WriteLine(result.Message);
+        }
+
+        private static void ResultTest2()
+        {
+
+            ///// BAKIM SAATİNE DENK GELMEZSE TÜM ARABALARIN FİYATLARINI DÖNDÜRÜR, BAKIM ZAMANINA DENK GELİRSE MESAJ DÖNDÜRÜR
+            CarManager carManager = new CarManager(new EfCarDal());
+            var result = carManager.GetAll();
+            if (result.Success == true)
             {
-                Console.WriteLine(car.CarName+"/" +car.BrandName+"/"+car.ColorName+"/"+car.DailyPrice);
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(car.DailyPrice);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void ResultTest1()
+
+
+        {
+            //Arabaların hepsini joinlenmiş haliyle getir.(Resultun datasını dön)
+            CarManager carManager = new CarManager(new EfCarDal());
+            var result = carManager.GetCarDetails();
+            foreach (var car in result.Data)
+            {
+                Console.WriteLine(car.CarName + "/" + car.BrandName + "/" + car.ColorName + "/" + car.DailyPrice);
             }
 
+           
         }
 
         private static void ColorTest1()
+
         {
+
+            //BAKIM SAATİNE DENK GELMEZSE TÜM RENKLERİN ADLARINI DÖNDÜRÜR, BAKIM ZAMANINA DENK GELİRSE MESAJ DÖNDÜRÜR
             ColorManager colorManager = new ColorManager(new EfColorDal());
-            foreach (var car in colorManager.GetAll())
+            var result = colorManager.GetAll();
+            if (result.Success == true)
             {
-                Console.WriteLine(car.ColorName);
+                foreach (var color in result.Data)
+                {
+                    Console.WriteLine(color.ColorName);
+                }
+            }
 
-
+            else
+            {
+                Console.WriteLine(result.Message);
             }
         }
-
-        private static void BrandTest1()
-        {
-            BrandManager brandManager = new BrandManager(new EfBrandDal());
-            foreach (var car in brandManager.GetAll())
-            {
-                Console.WriteLine(car.BrandName);
-
-
-            }
-        }
-
-        private static void CarTest2()
-        {
-            CarManager carManager = new CarManager(new EfCarDal());
-
-            Console.WriteLine((carManager.GetById(7)).DailyPrice);
-        }
-
-        private static void CarTest1()
-        {
-            CarManager carManager = new CarManager(new EfCarDal());
-
-            foreach (var car in carManager.GetAll())
-            {
-                Console.WriteLine(car.ColorId);
-
-
-            }
-        }
-
-
-
-
-
     }
+
+       
+
+    
 }
