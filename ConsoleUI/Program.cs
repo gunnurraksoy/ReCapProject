@@ -18,7 +18,122 @@ namespace ConsoleUI
             //ResultTest2();
             //Test1();
             //Test2();
+            //Test3();
+            //UserAdd();
+            //CustomerAdd();
+            //RentalAddTest();
+            //RentalGetAll();
+            //RentalDetailTest();
 
+        }
+
+        private static void RentalDetailTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.GetRentalDetails();
+            foreach (var rent in result.Data)
+            {
+                Console.WriteLine(rent.CarId + "/" + rent.CustomerId + "/" + rent.RentDate + "/" + rent.ReturnDate);
+            }
+        }
+
+        private static void RentalGetAll()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.GetAll();
+            foreach (var rental in result.Data)
+            {
+                Console.WriteLine(rental.RentDate);
+            }
+            Console.WriteLine(result.Message);
+        }
+
+        private static void RentalAddTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+
+            var result1 = rentalManager.Add(new Rental
+            {
+                CarId = 2,
+                CustomerId = 2,
+                RentDate = new DateTime(2021, 02, 20),
+                ReturnDate = new DateTime(2021, 01, 10)
+            });
+            Console.WriteLine(result1.Message);
+
+
+            var result2 = rentalManager.Add(new Rental
+            {
+                CarId = 5,
+                CustomerId = 3,
+                RentDate = new DateTime(2021, 01, 20),
+                ReturnDate = new DateTime(2021, 01, 28)
+            });
+            Console.WriteLine(result2.Message);
+
+            var result3 = rentalManager.Add(new Rental
+            {
+                CarId = 4,
+                CustomerId = 3,
+                RentDate = new DateTime(2021, 01, 17),
+                ReturnDate = new DateTime(2021, 01, 19)
+            });
+            Console.WriteLine(result3.Message);
+
+            var result4 = rentalManager.Add(new Rental
+            {
+                CarId = 2,
+                CustomerId = 2,
+                RentDate = new DateTime(2021, 02, 20)
+            });
+            Console.WriteLine(result4.Message);
+
+
+            var result5 = rentalManager.Add(new Rental
+            {
+                CarId = 2,
+                CustomerId = 2,
+                RentDate = new DateTime(2021, 01, 01)
+            });
+            Console.WriteLine(result5.Message);
+        }
+
+        private static void CustomerAdd()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            var result = customerManager.Add(new Customer { UserId = 1, CompanyName = "Trendyol" });
+            Console.WriteLine(result.Message);
+            var result2 = customerManager.Add(new Customer { UserId = 2, CompanyName = "Defacto" });
+            Console.WriteLine(result2.Message);
+            var result3 = customerManager.Add(new Customer { UserId = 3, CompanyName = "LcWaikiki" });
+            Console.WriteLine(result3.Message);
+        }
+
+        private static void UserAdd()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            var result1 = userManager.Add(new User { FirstName = "Günnur", LastName = "Aksoy", Email = "gunnurraksoy@gmail.com", Password = "12345" });
+            Console.WriteLine(result1.Message);
+
+            var result2 = userManager.Add(new User { FirstName = "İrem", LastName = "Çoban", Email = "iremcoban@gmail.com", Password = "1515" });
+            Console.WriteLine(result2.Message);
+
+            var result3 = userManager.Add(new User { FirstName = "Gülsemin", LastName = "Aksoy", Email = "gülseminaksoy@gmail.com", Password = "78955" });
+            Console.WriteLine(result3.Message);
+
+            var result4 = userManager.Add(new User { FirstName = "Ahmet", LastName = "Arslan", Email = "ahmetarslan@gmail.com", Password = "030201" });
+            Console.WriteLine(result4.Message);
+        }
+
+        private static void Test3()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            var result = userManager.GetAll();
+            foreach (var user in result.Data)
+            {
+                Console.WriteLine(user.FirstName);
+            }
+            Console.WriteLine(result.Message);
         }
 
         private static void Test2()
