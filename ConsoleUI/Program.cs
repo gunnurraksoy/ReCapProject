@@ -1,4 +1,5 @@
 ﻿using Business.Concrete;
+using Core.Entities.Concrete;
 using DataAccess.Concrete.EntityFramework;
 
 using Entities.Concrete;
@@ -24,6 +25,10 @@ namespace ConsoleUI
             //RentalAddTest();
             //RentalGetAll();
             //RentalDetailTest();
+
+
+            
+
 
         }
 
@@ -111,18 +116,18 @@ namespace ConsoleUI
 
         private static void UserAdd()
         {
-            UserManager userManager = new UserManager(new EfUserDal());
-            var result1 = userManager.Add(new User { FirstName = "Günnur", LastName = "Aksoy", Email = "gunnurraksoy@gmail.com", Password = "12345" });
-            Console.WriteLine(result1.Message);
+            //UserManager userManager = new UserManager(new EfUserDal());
+            //var result1 = userManager.Add(new User { FirstName = "Günnur", LastName = "Aksoy", Email = "gunnurraksoy@gmail.com", Password = "12345" });
+            //Console.WriteLine(result1.Message);
 
-            var result2 = userManager.Add(new User { FirstName = "İrem", LastName = "Çoban", Email = "iremcoban@gmail.com", Password = "1515" });
-            Console.WriteLine(result2.Message);
+            //var result2 = userManager.Add(new User { FirstName = "İrem", LastName = "Çoban", Email = "iremcoban@gmail.com", Password = "1515" });
+            //Console.WriteLine(result2.Message);
 
-            var result3 = userManager.Add(new User { FirstName = "Gülsemin", LastName = "Aksoy", Email = "gülseminaksoy@gmail.com", Password = "78955" });
-            Console.WriteLine(result3.Message);
+            //var result3 = userManager.Add(new User { FirstName = "Gülsemin", LastName = "Aksoy", Email = "gülseminaksoy@gmail.com", Password = "78955" });
+            //Console.WriteLine(result3.Message);
 
-            var result4 = userManager.Add(new User { FirstName = "Ahmet", LastName = "Arslan", Email = "ahmetarslan@gmail.com", Password = "030201" });
-            Console.WriteLine(result4.Message);
+            //var result4 = userManager.Add(new User { FirstName = "Ahmet", LastName = "Arslan", Email = "ahmetarslan@gmail.com", Password = "030201" });
+            //Console.WriteLine(result4.Message);
         }
 
         private static void Test3()
