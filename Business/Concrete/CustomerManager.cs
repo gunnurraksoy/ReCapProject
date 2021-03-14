@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
@@ -29,6 +30,12 @@ namespace Business.Concrete
             
             _customerDal.Add(customer);
             return new SuccessResult(Messages.CustomerAdded);
+        }
+
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Customer customer)
+        {
+            throw new NotImplementedException();
         }
 
         public IResult Delete(Customer customer)

@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Entities.Concrete;
@@ -30,6 +32,11 @@ namespace Business.Concrete
             _userDal.Add(user);
             return new SuccessResult(Messages.UserAdded);
         }
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(User user)
+        {
+            throw new NotImplementedException();
+        }
 
         public IResult Delete(User user)
         {
@@ -37,11 +44,13 @@ namespace Business.Concrete
             return new SuccessResult(Messages.UserDeleted);
         }
 
+        [CacheAspect]
         public IDataResult<List<User>> GetAll()
         {
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UserListed);
         }
 
+        [CacheAspect]
         public User GetByMail(string email)
         {
             return _userDal.Get(u => u.Email == email);
@@ -52,6 +61,8 @@ namespace Business.Concrete
             return _userDal.GetClaims(user);
         }
 
+
+        [CacheRemoveAspect("IUserService.Get")]
         public IResult Update(User user)
         {
             _userDal.Update(user);

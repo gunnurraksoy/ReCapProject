@@ -13,5 +13,6 @@ namespace Business.Abstract
         IResult Add(Color color);
         IResult Delete(Color color);
         IResult Update(Color color);
+        IResult AddTransactionalTest(Color color);
     }
 }

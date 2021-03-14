@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
@@ -33,6 +35,12 @@ namespace Business.Concrete
 
         }
 
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Rental rental)
+        {
+            throw new NotImplementedException();
+        }
+
         public IResult Delete(Rental rental)
         {
             _rentalDal.Add(rental);
@@ -40,6 +48,7 @@ namespace Business.Concrete
 
         }
 
+        [CacheAspect]
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalListed);
@@ -50,6 +59,8 @@ namespace Business.Concrete
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails());
         }
 
+
+        [CacheRemoveAspect("IRentalService.Get")]
         public IResult Update(Rental rental)
         {
             _rentalDal.Add(rental);

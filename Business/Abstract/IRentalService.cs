@@ -14,6 +14,7 @@ namespace Business.Abstract
         IResult Update(Rental rental);
         IDataResult<List<Rental>> GetAll();
         IDataResult<List<RentalDetailDto>> GetRentalDetails();
+        IResult AddTransactionalTest(Rental rental);
 
     }
 }
