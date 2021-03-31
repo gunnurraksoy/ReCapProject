@@ -38,7 +38,7 @@ namespace ConsoleUI
             var result = rentalManager.GetRentalDetails();
             foreach (var rent in result.Data)
             {
-                Console.WriteLine(rent.CarId + "/" + rent.CustomerId + "/" + rent.RentDate + "/" + rent.ReturnDate);
+                Console.WriteLine(rent.FirstName + "/" + rent.LastName + "/" + rent.RentDate + "/" + rent.ReturnDate);
             }
         }
 
@@ -185,7 +185,7 @@ namespace ConsoleUI
             var result = carManager.GetCarDetails();
             foreach (var car in result.Data)
             {
-                Console.WriteLine(car.CarName + "/" + car.BrandName + "/" + car.ColorName + "/" + car.DailyPrice);
+                Console.WriteLine(car.Id + "/" + car.BrandName + "/" + car.ColorName + "/" + car.DailyPrice);
             }
 
            

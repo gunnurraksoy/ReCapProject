@@ -20,7 +20,7 @@ namespace Core.Utilities.Helpers
                 }
             }
             var result = newPath(file);
-            File.Move(sourcepath, result);
+            File.Move(sourcepath, Environment.CurrentDirectory + @"\wwwroot\Images\" + result);
             return result;
         }
         public static IResult Delete(string path)
@@ -54,10 +54,10 @@ namespace Core.Utilities.Helpers
             FileInfo ff = new FileInfo(file.FileName);
             string fileExtension = ff.Extension;
 
-            string path = Environment.CurrentDirectory + @"\wwwroot\uploads";
+            
             var newPath = Guid.NewGuid().ToString() + fileExtension;
 
-            string result = $@"{path}\{newPath}";
+            string result = $"{newPath}";
             return result;
         }
 

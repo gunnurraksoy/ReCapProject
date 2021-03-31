@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
@@ -87,10 +88,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getcarsbybrandid")]
-        public IActionResult GetCarsByBrandId(int id)
+        [HttpGet("getcardetailsbybrandid")]
+        public IActionResult GetCarDetailsByBrandId(int brandId)
         {
-            var result = _carService.GetCarsByBrandId( id);
+            var result = _carService.GetCarDetailsByBrandId(brandId);
             if (result.Success)
             {
                 return Ok(result);
@@ -98,10 +99,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getcarsfbycolorid")]
-        public IActionResult GetCarsByColorId(int id)
+        [HttpGet("getcardetailsbycolorid")]
+        public IActionResult GetCarDetailsByColorId(int colorId)
         {
-            var result = _carService.GetCarsByColorId(id);
+            var result = _carService.GetCarDetailsByColorId(colorId);
             if (result.Success)
             {
                 return Ok(result);
@@ -113,6 +114,7 @@ namespace WebAPI.Controllers
         [HttpGet("getcardetails")]
         public IActionResult GetCarDetails()
         {
+            Thread.Sleep(5000);
             var result = _carService.GetCarDetails();
             if (result.Success)
             {
@@ -120,5 +122,28 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpGet("getcardto")]
+        public IActionResult GetCarDto()
+        {
+            var result = _carService.GetCarDto();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcardtocarId")]
+        public IActionResult GetCarDtoCarId(int carId)
+        {
+            var result = _carService.GetCarDtoCarId(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
+
 }

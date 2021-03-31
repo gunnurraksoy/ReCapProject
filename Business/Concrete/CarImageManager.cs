@@ -62,6 +62,10 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
         }
 
+        public IDataResult<CarImage> GetById(int id)
+        {
+            return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.CarImageId == id));
+        }
 
         [ValidationAspect(typeof(CarImageValidator))]
         public IDataResult<List<CarImage>> GetImagesByCarId(int id)
@@ -113,7 +117,7 @@ namespace Business.Concrete
         {
             try
             {
-                string path = @"\wwwroot\uploads\logo.jpg";
+                string path = @"carrental.jpg";
                 var result = _carImageDal.GetAll(c => c.CarId == id).Any();
                 if (!result)
                 {

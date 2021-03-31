@@ -74,16 +74,27 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
-        public IDataResult<List<Car>> GetCarsByBrandId(int id)
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandId(int brandId)
         {
-            return  new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == id));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetByBrandDetails(brandId));
         }
 
-        public IDataResult<List<Car>> GetCarsByColorId(int id)
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByColorId(int colorId)
         {
-            return new SuccessDataResult<List<Car>>( _carDal.GetAll(p => p.ColorId == id));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetByColorDetails(colorId));
         }
 
+        public IDataResult<List<CarDto>> GetCarDto()
+        {
+            return new SuccessDataResult<List<CarDto>>(_carDal.CarDto());
+        }
+
+        public IDataResult<List<CarDto>> GetCarDtoCarId(int CarId)
+        {
+            
+            return new SuccessDataResult<List<CarDto>>(_carDal.CarDto(c => c.CarId == CarId));
+        }
 
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
@@ -92,5 +103,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarUpdated);
 
         }
+
+        
     }
 }
